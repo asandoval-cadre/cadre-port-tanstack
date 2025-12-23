@@ -5,5 +5,5 @@
     "singleQuote": true,
     "tabWidth": 4,
     "trailingComma": "none",
-    "tailwindStylesheet": "./src/app/globals.css"
+    "tailwindStylesheet": "./src/styles.css"
 }
