@@ -17,7 +17,10 @@ export function DashboardTopbar({ items }: { items: Array<SidebarItem> }) {
         select: (state) => state.location.pathname
     })
 
-    const currentItem = items.find((item) => pathname === item.to || pathname.startsWith(item.to + '/'))
+    const currentItem = items
+        .filter((item) => pathname === item.to || pathname.startsWith(item.to + '/'))
+        .sort((a, b) => b.to.length - a.to.length)
+        .at(0)
 
     return (
         <header className="fixed inset-x-0 top-0 z-50 flex h-16 items-center justify-between border-b bg-white px-4">
