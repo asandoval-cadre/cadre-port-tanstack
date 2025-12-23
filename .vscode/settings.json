@@ -1,5 +1,5 @@
 {
-  "editor.codeActionsOnSave": {
+    "editor.codeActionsOnSave": {
         "source.fixAll.eslint": "always",
         "source.organizeImports": "always"
     },
@@ -10,13 +10,13 @@
         "strings": "on"
     },
     "files.insertFinalNewline": true,
-  "files.watcherExclude": {
-    "**/routeTree.gen.ts": true
-  },
-  "search.exclude": {
-    "**/routeTree.gen.ts": true
-  },
-  "files.readonlyInclude": {
-    "**/routeTree.gen.ts": true
-  }
+    "files.watcherExclude": {
+        "**/routeTree.gen.ts": true
+    },
+    "search.exclude": {
+        "**/routeTree.gen.ts": true
+    },
+    "files.readonlyInclude": {
+        "**/routeTree.gen.ts": true
+    }
 }
