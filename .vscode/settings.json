@@ -9,6 +9,9 @@
     "editor.quickSuggestions": {
         "strings": "on"
     },
+    "files.associations": {
+        "*.css": "tailwindcss"
+    },
     "files.insertFinalNewline": true,
     "files.watcherExclude": {
         "**/routeTree.gen.ts": true
