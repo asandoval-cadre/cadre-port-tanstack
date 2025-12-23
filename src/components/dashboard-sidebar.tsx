@@ -21,7 +21,12 @@ export function DashboardSidebar({ items }: { items: Array<SidebarItem> }) {
                             <SidebarMenuItem key={item.to}>
                                 <SidebarMenuButton asChild isActive={pathname === item.to}>
                                     <Link to={item.to}>
-                                        <span className="font-medium">{item.title}</span>
+                                        <div className="flex items-center gap-2">
+                                            <img src="/cadre-icon.svg" alt="Cadre AI" width={16} height={16} className="h-[16px] w-[16px]" />
+                                            <span className="truncate font-medium transition-all duration-200 group-data-[collapsed=true]/sidebar:hidden data-[state=closed]:opacity-0 data-[state=open]:opacity-100">
+                                                {item.title}
+                                            </span>
+                                        </div>
                                     </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
