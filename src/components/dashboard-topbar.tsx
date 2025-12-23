@@ -1,12 +1,23 @@
-import { LogOutIcon } from 'lucide-react'
+import { useRouterState } from '@tanstack/react-router'
 import { useAuth } from '@workos/authkit-tanstack-react-start/client'
+import { LogOutIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 
-export function DashboardTopbar() {
+type SidebarItem = {
+    title: string
+    to: string
+}
+
+export function DashboardTopbar({ items }: { items: Array<SidebarItem> }) {
     const { signOut } = useAuth()
+    const pathname = useRouterState({
+        select: (state) => state.location.pathname
+    })
+
+    const currentItem = items.find((item) => pathname === item.to || pathname.startsWith(item.to + '/'))
 
     return (
         <header className="fixed inset-x-0 top-0 z-50 flex h-16 items-center justify-between border-b bg-white px-4">
@@ -14,6 +25,8 @@ export function DashboardTopbar() {
                 <SidebarTrigger />
                 <h1 className="text-2xl font-bold text-black">Cadre AI</h1>
             </div>
+
+            <span className="absolute left-1/2 -translate-x-1/2 text-lg font-semibold text-stone-700">{currentItem?.title}</span>
 
             <TooltipProvider>
                 <Tooltip>
