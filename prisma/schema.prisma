@@ -6,3 +6,64 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum TabType {
+  core
+  iframe
+  artifact
+}
+
+model User {
+  id                String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  workosId          String  @unique
+  email             String?
+  fullName          String?
+  title             String?
+  profilePictureUrl String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Organization {
+  id       String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  workosId String  @unique
+  name     String
+  website  String?
+
+  orgTabs OrgTab[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Tab {
+  id      String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name    String
+  path    String   @unique
+  tabType TabType?
+
+  orgTabs OrgTab[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model OrgTab {
+  id          String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  orgId       String  @db.Uuid
+  tabId       String  @db.Uuid
+  order       Int     @default(0)
+  iframeUrl   String?
+  htmlContent String?
+
+  organization Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  tab          Tab          @relation(fields: [tabId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([orgId, tabId])
+  @@index([orgId])
+  @@index([tabId])
+}
