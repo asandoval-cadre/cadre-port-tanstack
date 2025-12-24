@@ -9,6 +9,7 @@
         "PKief.material-icon-theme",
         "shardulm94.trailing-spaces",
         "streetsidesoftware.code-spell-checker",
-        "yoavbls.pretty-ts-errors"
+        "yoavbls.pretty-ts-errors",
+        "Prisma.prisma"
     ]
 }

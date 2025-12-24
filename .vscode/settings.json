@@ -10,6 +10,9 @@
         "strings": "on"
     },
     "workbench.iconTheme": "material-icon-theme",
+    "[prisma]": {
+        "editor.defaultFormatter": "Prisma.prisma"
+    },
     "files.associations": {
         "*.css": "tailwindcss"
     },
