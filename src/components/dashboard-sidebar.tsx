@@ -1,6 +1,6 @@
 import { Link, useRouterState } from '@tanstack/react-router'
 
-import { Sidebar, SidebarContent, SidebarGroup, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarRail } from '@/components/ui/sidebar'
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarRail } from '@/components/ui/sidebar'
 
 type SidebarItem = {
     title: string
@@ -34,6 +34,9 @@ export function DashboardSidebar({ items }: { items: Array<SidebarItem> }) {
                     </SidebarMenu>
                 </SidebarGroup>
             </SidebarContent>
+            <SidebarFooter className="p-4 group-data-[state=collapsed]:hidden">
+                <img src="/cadre-logo.png" className="max-w-[120px]" />
+            </SidebarFooter>
             <SidebarRail />
         </Sidebar>
     )
