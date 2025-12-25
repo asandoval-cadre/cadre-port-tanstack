@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { handleCallbackRoute } from '@workos/authkit-tanstack-react-start'
 
-import { syncOrganization, syncUser } from '@/lib/sync'
+import { syncOrganization, syncUser } from '@/lib/auth/sync'
 
 export const Route = createFileRoute('/callback')({
     server: {
