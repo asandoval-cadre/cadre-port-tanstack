@@ -13,3 +13,6 @@ count.txt
 todos.json
 
 /src/generated/prisma
+
+/supabase/.branches
+/supabase/.temp
