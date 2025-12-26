@@ -1,4 +1,5 @@
-import { Link, useRouterState } from '@tanstack/react-router'
+import { Link, useLoaderData, useRouterState } from '@tanstack/react-router'
+import { Settings as SettingsIcon } from 'lucide-react'
 
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarRail } from '@/components/ui/sidebar'
 
@@ -8,9 +9,13 @@ type SidebarItem = {
 }
 
 export function DashboardSidebar({ items }: { items: Array<SidebarItem> }) {
+    const { role } = useLoaderData({ from: '/_authenticated' })
     const pathname = useRouterState({
         select: (state) => state.location.pathname
     })
+
+    const canSeeAdminSettings = role === 'system-admin' || role === 'pod-manager'
+    const isAdminSettingsActive = pathname === '/dashboard/admin-settings' || pathname.startsWith('/dashboard/admin-settings/')
 
     return (
         <Sidebar collapsible="icon">
@@ -33,9 +38,23 @@ export function DashboardSidebar({ items }: { items: Array<SidebarItem> }) {
                         ))}
                     </SidebarMenu>
                 </SidebarGroup>
+                {canSeeAdminSettings ? (
+                    <SidebarGroup className="mt-auto">
+                        <SidebarMenu>
+                            <SidebarMenuItem>
+                                <SidebarMenuButton asChild isActive={isAdminSettingsActive}>
+                                    <Link to="/dashboard/admin-settings">
+                                        <SettingsIcon className="h-4 w-4" />
+                                        <span className="truncate font-medium">Admin Settings</span>
+                                    </Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                        </SidebarMenu>
+                    </SidebarGroup>
+                ) : null}
             </SidebarContent>
             <SidebarFooter className="p-4 group-data-[state=collapsed]:hidden">
-                <img src="/cadre-logo.png" className="max-w-[120px]" />
+                <img src="/cadre-logo.png" alt="Cadre logo" width={120} height={40} className="h-auto max-w-[120px]" />
             </SidebarFooter>
             <SidebarRail />
         </Sidebar>
