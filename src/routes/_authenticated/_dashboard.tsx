@@ -13,7 +13,7 @@ const sidebarItems = [{ title: 'Dashboard', to: '/dashboard' }]
 function RouteComponent() {
     return (
         <SidebarProvider>
-            <DashboardTopbar items={sidebarItems} />
+            <DashboardTopbar />
             <div className="flex min-h-screen w-full pt-16">
                 <DashboardSidebar items={sidebarItems} />
                 <SidebarInset className="bg-stone-50 p-8">
