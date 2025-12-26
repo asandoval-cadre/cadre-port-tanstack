@@ -6,21 +6,15 @@ import { Button } from '@/components/ui/button'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 
-type SidebarItem = {
-    title: string
-    to: string
-}
-
-export function DashboardTopbar({ items }: { items: Array<SidebarItem> }) {
+export function DashboardTopbar() {
     const { signOut } = useAuth()
-    const pathname = useRouterState({
-        select: (state) => state.location.pathname
-    })
 
-    const currentItem = items
-        .filter((item) => pathname === item.to || pathname.startsWith(item.to + '/'))
-        .sort((a, b) => b.to.length - a.to.length)
-        .at(0)
+    const routeTitle = useRouterState({
+        select: (state) => {
+            const matchWithTitle = [...state.matches].reverse().find((m) => (m.staticData as { title?: string } | undefined)?.title)
+            return (matchWithTitle?.staticData as { title?: string } | undefined)?.title
+        }
+    })
 
     return (
         <header className="fixed inset-x-0 top-0 z-50 flex h-16 items-center justify-between border-b bg-white px-4">
@@ -29,7 +23,7 @@ export function DashboardTopbar({ items }: { items: Array<SidebarItem> }) {
                 <h1 className="text-2xl font-bold text-black">Cadre AI</h1>
             </div>
 
-            <span className="absolute left-1/2 -translate-x-1/2 text-lg font-semibold text-stone-700">{currentItem?.title}</span>
+            <span className="absolute left-1/2 -translate-x-1/2 text-lg font-semibold text-stone-700">{routeTitle}</span>
 
             <TooltipProvider>
                 <Tooltip>
