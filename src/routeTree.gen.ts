@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/_dashboard'
 import { Route as AuthenticatedDashboardDashboardIndexRouteImport } from './routes/_authenticated/_dashboard/dashboard/index'
+import { Route as AuthenticatedDashboardDashboardAdminSettingsRouteImport } from './routes/_authenticated/_dashboard/dashboard/admin-settings'
 
 const CallbackRoute = CallbackRouteImport.update({
   id: '/callback',
@@ -39,15 +40,23 @@ const AuthenticatedDashboardDashboardIndexRoute =
     path: '/dashboard/',
     getParentRoute: () => AuthenticatedDashboardRoute,
   } as any)
+const AuthenticatedDashboardDashboardAdminSettingsRoute =
+  AuthenticatedDashboardDashboardAdminSettingsRouteImport.update({
+    id: '/dashboard/admin-settings',
+    path: '/dashboard/admin-settings',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/callback': typeof CallbackRoute
   '/': typeof AuthenticatedIndexRoute
+  '/dashboard/admin-settings': typeof AuthenticatedDashboardDashboardAdminSettingsRoute
   '/dashboard': typeof AuthenticatedDashboardDashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/callback': typeof CallbackRoute
   '/': typeof AuthenticatedIndexRoute
+  '/dashboard/admin-settings': typeof AuthenticatedDashboardDashboardAdminSettingsRoute
   '/dashboard': typeof AuthenticatedDashboardDashboardIndexRoute
 }
 export interface FileRoutesById {
@@ -56,19 +65,21 @@ export interface FileRoutesById {
   '/callback': typeof CallbackRoute
   '/_authenticated/_dashboard': typeof AuthenticatedDashboardRouteWithChildren
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/_dashboard/dashboard/admin-settings': typeof AuthenticatedDashboardDashboardAdminSettingsRoute
   '/_authenticated/_dashboard/dashboard/': typeof AuthenticatedDashboardDashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/callback' | '/' | '/dashboard'
+  fullPaths: '/callback' | '/' | '/dashboard/admin-settings' | '/dashboard'
   fileRoutesByTo: FileRoutesByTo
-  to: '/callback' | '/' | '/dashboard'
+  to: '/callback' | '/' | '/dashboard/admin-settings' | '/dashboard'
   id:
     | '__root__'
     | '/_authenticated'
     | '/callback'
     | '/_authenticated/_dashboard'
     | '/_authenticated/'
+    | '/_authenticated/_dashboard/dashboard/admin-settings'
     | '/_authenticated/_dashboard/dashboard/'
   fileRoutesById: FileRoutesById
 }
@@ -114,15 +125,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardDashboardIndexRouteImport
       parentRoute: typeof AuthenticatedDashboardRoute
     }
+    '/_authenticated/_dashboard/dashboard/admin-settings': {
+      id: '/_authenticated/_dashboard/dashboard/admin-settings'
+      path: '/dashboard/admin-settings'
+      fullPath: '/dashboard/admin-settings'
+      preLoaderRoute: typeof AuthenticatedDashboardDashboardAdminSettingsRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
   }
 }
 
 interface AuthenticatedDashboardRouteChildren {
+  AuthenticatedDashboardDashboardAdminSettingsRoute: typeof AuthenticatedDashboardDashboardAdminSettingsRoute
   AuthenticatedDashboardDashboardIndexRoute: typeof AuthenticatedDashboardDashboardIndexRoute
 }
 
 const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren =
   {
+    AuthenticatedDashboardDashboardAdminSettingsRoute:
+      AuthenticatedDashboardDashboardAdminSettingsRoute,
     AuthenticatedDashboardDashboardIndexRoute:
       AuthenticatedDashboardDashboardIndexRoute,
   }
